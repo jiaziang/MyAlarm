@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    
+    <ImageView
+        android:id="@+id/color_image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"/>
+    <TextView
+        android:id="@+id/color_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_toRightOf="@+id/color_image"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:textSize="20dp"/> 
+    <TextView 
+        android:id="@+id/color_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/color_image"
+        android:layout_below="@+id/color_title"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:textSize="15dp"/>
+    <com.jiaziang8.alarm.ui.MyButton
+        android:id="@+id/add_friend"
+        android:background="@null"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="添加"
+        android:textSize="14dp"/>
+        
+</RelativeLayout>

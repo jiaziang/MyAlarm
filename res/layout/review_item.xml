@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/review_line"
+        android:layout_width="15dp"
+        android:layout_height="110dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="24dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/review_line" />
+
+    <TextView
+        android:id="@+id/review_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/review_line"
+        android:text="大黄给你设置了闹钟"
+        android:textSize="18dp" />
+<!--     <TextView
+        android:id="@+id/review_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="给你设置了闹钟"
+        android:textSize="14dp"
+        android:layout_toRightOf="@id/review_info"
+        android:layout_alignBottom="@id/review_info"
+        android:layout_marginLeft="6dp"
+        android:textColor="@color/gray"/> -->
+
+    <TextView
+        android:id="@+id/review_words"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/review_info"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/review_line"
+        android:maxLines="2"
+        android:text="起床了都比起床了都比起床了都比起床了都都比起床了都都比起床了都"
+        android:textSize="11dp" />
+
+    <Button
+        android:id="@+id/play"
+        android:layout_width="60dp"
+        android:layout_height="37dp"
+        android:layout_marginBottom="5dp"
+        android:layout_alignBottom="@id/review_line"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/review_play"
+        android:enabled="true" />
+
+    <com.jiaziang8.alarm.ui.deleteReviewButton
+        android:id="@+id/delete_review"
+        android:layout_width="18dp"
+        android:layout_height="27dp"
+        android:layout_alignBottom="@id/review_line"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/delete"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/review_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/review_line"
+        android:layout_toRightOf="@id/review_line"
+        android:gravity="center"
+        android:text="2014-3-14"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="12dp"
+        android:textSize="13dp" 
+        android:textColor="@color/green"/>
+
+    <View
+        android:id="@+id/divide_0"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="33dp"
+        android:layout_alignBottom="@id/review_line"
+        android:background="@android:color/darker_gray" />
+
+</RelativeLayout>

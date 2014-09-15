@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#E0FFFF"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/regist_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="请填写正确手机号,该手机号即为登陆账号" 
+        android:textSize="11dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="#A6A6A6"/>
+
+    <FrameLayout
+        android:id="@+id/account_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/regist_info"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="10dp" >
+
+        <EditText
+            android:id="@+id/account"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/input_bg"
+            android:ems="10"
+            android:hint="你的手机号码"
+            android:inputType="number"
+            android:paddingLeft="76dp"
+            android:textSize="14sp" >
+        </EditText>
+
+        <ImageView
+            android:id="@+id/little_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="90dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/little_phone" />
+
+        <TextView
+            android:id="@+id/area_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="56dp"
+            android:text="+86"
+            android:textColor="@color/green"
+            android:textSize="14dp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/password_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/account_layout"
+        android:layout_marginBottom="60dp" >
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/input_bg"
+            android:ems="10"
+            android:hint="密码"
+            android:inputType="textPassword"
+            android:paddingLeft="76dp"
+            android:textSize="14dp" >
+        </EditText>
+
+        <ImageView
+            android:id="@+id/little_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="90dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/little_suo" />
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:layout_below="@id/password_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/bluebutton_selector"
+        android:text="下一步" 
+        android:textColor="@color/white"
+        android:textSize="18dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" >
+
+    </TextView>
+
+</RelativeLayout>

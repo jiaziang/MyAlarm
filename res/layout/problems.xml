@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E0FFFF" >
+
+    <RelativeLayout
+        android:id="@+id/problem_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/my_blue" >
+
+        <RelativeLayout
+            android:id="@+id/back_layout"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_alignParentLeft="true" >
+
+            <ImageView
+                android:id="@+id/back_button"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/left_arrow" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/notification_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:padding="9dp"
+            android:text="常见问题"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/problem_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/problem_title"
+        android:paddingLeft="9dp"
+        android:paddingRight="9dp"
+        android:paddingTop="7dp" >
+
+        <TextView
+            android:id="@+id/problem1_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注册时收不到验证码怎么办？"
+            android:textColor="@color/dark_red"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/anwser1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/problem1_title"
+            android:layout_marginTop="8dp"
+            android:text="如果你的网络状况不好或手机软件进行短信拦截,可能收不到验证短信,建议你检查设置,重新获取验证码。"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/problem2_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/anwser1"
+            android:layout_marginTop="10dp"
+            android:text="叫床里选择好友什么意思?"
+            android:textColor="@color/dark_red"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/anwser2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/problem2_title"
+            android:layout_marginTop="8dp"
+            android:text="可以选择已经添加的好友,成为你叫醒的对象。"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/problem3_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/anwser2"
+            android:layout_marginTop="10dp"
+            android:text="给他留言什么意思?"
+            android:textColor="@color/dark_red"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/anwser3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/problem3_title"
+            android:layout_marginTop="8dp"
+            android:text="写下你想跟Ta说的一句话,在闹钟响起的时候能让你的好友看到。"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/problem4_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/anwser3"
+            android:layout_marginTop="10dp"
+            android:text="如何更改闹钟时间和查看闹钟具体信息？"
+            android:textColor="@color/dark_red"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/anwser4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/problem4_title"
+            android:layout_marginTop="8dp"
+            android:text="接受好友设置的闹钟后闹钟信息不能修改，在第一次响铃时间过后可以在日志中查看闹钟具体信息。"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/problem5_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/anwser4"
+            android:layout_marginTop="10dp"
+            android:text="叫床中提交是什么意思？"
+            android:textColor="@color/dark_red"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/anwser5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/problem5_title"
+            android:layout_marginTop="8dp"
+            android:text="设置好闹钟后,点击提交按钮会通知对方你给他设置了闹钟。"
+            android:textSize="15dp" />
+        
+        <TextView
+            android:id="@+id/problem6_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/anwser5"
+            android:layout_marginTop="10dp"
+            android:text="上传闹钟时会费很大流量吗?"
+            android:textColor="@color/dark_red"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/anwser6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/problem6_title"
+            android:layout_marginTop="8dp"
+            android:text="不会,我们对上传的音频和信息进行了一定的压缩和处理，所以和一些即时语音通信工具产生的流量差不多。"
+            android:textSize="15dp" />        
+        
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="#E0FFFF" >
+
+    <TextView
+        android:id="@+id/info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="23dp"
+        android:layout_marginTop="20dp"
+        android:text="已经向该手机号发送短信验证码"
+        android:textSize="14dp" >
+    </TextView>
+
+    <EditText
+        android:id="@+id/checknumber"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:layout_below="@id/info"
+        android:layout_marginBottom="60dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/input_bg"
+        android:ems="10"
+        android:hint="输入验证码"
+        android:inputType="number"
+        android:paddingLeft="15dp"
+        android:textSize="16dp" >
+    </EditText>
+
+    <Button
+        android:id="@+id/reget"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:layout_below="@id/checknumber"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/bluebutton_selector"
+        android:enabled="False"
+        android:text="重新获取验证码" 
+        android:textColor="@color/white"
+        android:textSize="18dp"/>
+    <Button
+        android:id="@+id/regist"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:layout_below="@id/reget"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bluebutton_selector"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:text="下一步" 
+        android:textColor="@color/white"
+        android:textSize="18dp"/>
+
+</RelativeLayout>

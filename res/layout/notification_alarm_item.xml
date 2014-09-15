@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp" >
+
+    <ImageView
+        android:id="@+id/notification_head"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="5dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/default_head" />
+
+    <TextView
+        android:id="@+id/notification_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/notification_head"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="3dp"
+        android:text="旺财给你设置了一个闹钟"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/notification_alarm_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/notification_head"
+        android:layout_below="@id/notification_info"
+        android:layout_marginTop="4dp"
+        android:text="时间 08:30"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/notification_repeat_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/notification_head"
+        android:layout_alignBottom="@id/notification_head"
+        android:text="重复:周一 周二 周三 周五 周六 周日"
+        android:textSize="10dp" />
+
+    <TextView
+        android:id="@+id/notification_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@id/notification_head"
+        android:layout_marginTop="8dp"
+        android:text="2014-07-07 15:23"
+        android:textSize="10dp" />
+
+    <com.jiaziang8.alarm.ui.NotificationButton
+        android:id="@+id/refuse_button"
+        android:layout_width="50dp"
+        android:layout_height="22dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/smallblue_selector"
+        android:text="拒绝"
+        android:gravity="center"
+        android:textSize="12dp" />
+
+    <com.jiaziang8.alarm.ui.NotificationButton
+        android:id="@+id/accept_button"
+        android:layout_width="50dp"
+        android:layout_height="22dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="72dp"
+        android:gravity="center"
+        android:background="@drawable/smallblue_selector"
+        android:text="接受"
+        android:textSize="12dp" />
+
+</RelativeLayout>

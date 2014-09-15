@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E0FFFF" >
+
+    <RelativeLayout
+        android:id="@+id/setting_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/my_blue" >
+
+        <RelativeLayout
+            android:id="@+id/back_layout"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_alignParentLeft="true" >
+
+            <ImageView
+                android:id="@+id/back_button"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/left_arrow" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/notification_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:padding="9dp"
+            android:text="设置"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/divide_0"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/setting_title"
+        android:layout_marginTop="12dp"
+        android:background="@android:color/darker_gray" />
+
+    <RelativeLayout
+        android:id="@+id/head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divide_0"
+        android:background="@drawable/timepick_selector"
+        android:padding="9dp" >
+
+        <ImageView
+            android:id="@+id/user_head"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="11dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/default_head" >
+        </ImageView>
+
+        <ImageView
+            android:id="@+id/userhead_arrow"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/right_arrow" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/divide_1"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/head_layout"
+        android:background="@android:color/darker_gray" />
+
+    <View
+        android:id="@+id/divide_2"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/divide_1"
+        android:layout_marginTop="12dp"
+        android:background="@android:color/darker_gray" />
+
+    <RelativeLayout
+        android:id="@+id/dont_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divide_2"
+        android:background="@drawable/timepick_selector"
+        android:padding="9dp" >
+
+        <TextView
+            android:id="@+id/dont_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:paddingLeft="14dp"
+            android:paddingTop="4dp"
+            android:text="静音下响铃"
+            android:textSize="18dp" />
+
+        <CheckBox
+            android:id="@+id/dont_onoff"
+            android:layout_width="48dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/alarm_switch"
+            android:button="@null" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/divide_3"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/dont_layout"
+        android:background="@android:color/darker_gray" />
+
+    <RelativeLayout
+        android:id="@+id/problem_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divide_3"
+        android:background="@drawable/timepick_selector"
+        android:padding="9dp" >
+
+        <TextView
+            android:id="@+id/dont_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:paddingLeft="14dp"
+            android:paddingTop="4dp"
+            android:text="常见问题"
+            android:textSize="18dp" />
+
+        <ImageView
+            android:id="@+id/problem_arrow"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/right_arrow" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/divide_4"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/problem_layout"
+        android:background="@android:color/darker_gray" />
+
+    <View
+        android:id="@+id/divide_5"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/divide_4"
+        android:layout_marginTop="12dp"
+        android:background="@android:color/darker_gray" />
+
+    <RelativeLayout
+        android:id="@+id/about_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divide_5"
+        android:background="@drawable/timepick_selector"
+        android:padding="9dp" >
+
+        <TextView
+            android:id="@+id/about_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:paddingLeft="14dp"
+            android:paddingTop="4dp"
+            android:text="关于我们"
+            android:textSize="18dp" />
+
+        <ImageView
+            android:id="@+id/about_arrow"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/right_arrow" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/divide_6"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/about_layout"
+        android:background="@android:color/darker_gray" />
+
+    <Button
+        android:id="@+id/exit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/bluebutton_selector"
+        android:text="注销登录"
+        android:textColor="@color/white"
+        android:textSize="18dp" />
+
+</RelativeLayout>
