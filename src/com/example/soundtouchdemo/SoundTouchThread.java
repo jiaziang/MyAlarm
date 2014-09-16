@@ -182,7 +182,7 @@ public class SoundTouchThread extends Thread {
 			out4.close();
 			SetAlarmFragment.ISRECORDED = true;
 
-			//handler.sendEmptyMessage(Settings.MSG_FILE_SAVE_SUCCESS);
+			handler.sendEmptyMessage(SetAlarmFragment.RECORD_FINISHED);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

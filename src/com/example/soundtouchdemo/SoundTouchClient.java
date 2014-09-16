@@ -3,12 +3,12 @@ package com.example.soundtouchdemo;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import android.media.AudioManager;
+import com.jeremyfeinstein.slidingmenu.example.SetAlarmFragment;
+
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 
 public class SoundTouchClient implements OnCompletionListener{
@@ -29,10 +29,10 @@ public class SoundTouchClient implements OnCompletionListener{
 			
 			switch (msg.what) {
 			
-/*			case Settings.MSG_FILE_SAVE_SUCCESS:				
-				play();
+			case SetAlarmFragment.RECORD_FINISHED:			
+				mainHandler.sendEmptyMessage(SetAlarmFragment.RECORD_FINISHED);
 				
-				break;*/
+				break;
 				
 			}
 		};

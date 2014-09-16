@@ -13,12 +13,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.zip.Inflater;
 
 import com.example.soundtouchdemo.SoundTouchClient;
 import com.jiaziang8.alarm.service.MyService;
 import com.jiaziang8.alarm.ui.CustomExpandableListView;
-import com.jiaziang8.alarm.util.Constants;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -82,6 +80,7 @@ public class SetAlarmFragment extends Fragment implements
 	private Runnable runnable;
 	private static final int UPLOAD_START = 2;
 	private static final int UPLOAD_END = 3;
+	public static final int RECORD_FINISHED = 4;
 	private View view;
 	public  static boolean ISRECORDED =false;
 	
@@ -144,6 +143,8 @@ public class SetAlarmFragment extends Fragment implements
 					selected_friendNameTextView.setText("未选择");
 					friend_name = null;
 					friend_number = null;
+				case RECORD_FINISHED:    // 录音完成
+					//Toast.makeText(getActivity(), "处理完成", Toast.LENGTH_SHORT).show();
 					
 					
 				default:
@@ -450,6 +451,14 @@ public class SetAlarmFragment extends Fragment implements
 	private void initRecorder() {
 		try {
 			/* 创建一个临时文件，用来存放录音 */
+			File[] datafiles = SDPathDir.listFiles();
+			for(File file:datafiles){
+				if(!file.isDirectory()){
+					if(file.getName().endsWith(".mp3")){
+						file.delete();
+					}
+				}
+			}
 			tempFile = File.createTempFile("tempFile", ".mp3", SDPathDir);
 			tempFile2 = File.createTempFile("tempFile", ".mp3", SDPathDir);
 			tempFile3 = File.createTempFile("tempFile", ".mp3", SDPathDir);
@@ -464,7 +473,6 @@ public class SetAlarmFragment extends Fragment implements
 			e.printStackTrace();
 		}
 	}
-
 
 	/**
 	 * 上传文件
