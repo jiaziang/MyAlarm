@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.zip.Inflater;
 
+import com.example.soundtouchdemo.SoundTouchClient;
 import com.jiaziang8.alarm.service.MyService;
 import com.jiaziang8.alarm.ui.CustomExpandableListView;
 import com.jiaziang8.alarm.util.Constants;
@@ -68,6 +69,13 @@ public class SetAlarmFragment extends Fragment implements
 	private MediaPlayer mediaPlayer;
 	private File SDPathDir;
 	private File tempFile;
+	private File tempFile2;
+	private File tempFile3;
+	private File tempFile4;
+	public String Filename_1;
+	public String Filename_2;
+	public String Filename_3;
+	public String Filename_4;
 	private String urlStr = MyService.UPLOADALARMURL;
 	private int record_time;
 	private static Handler handler;
@@ -75,6 +83,9 @@ public class SetAlarmFragment extends Fragment implements
 	private static final int UPLOAD_START = 2;
 	private static final int UPLOAD_END = 3;
 	private View view;
+	public  static boolean ISRECORDED =false;
+	
+	private SoundTouchClient soundTouchClient;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -82,6 +93,7 @@ public class SetAlarmFragment extends Fragment implements
 		//Inflater inflater = new Inflater();
 		record_time = 0;
 		mDays = 0;
+		ISRECORDED =false;
 		handler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
@@ -109,7 +121,15 @@ public class SetAlarmFragment extends Fragment implements
 					words_tosay .setText("");
 					if (tempFile.exists()) {
 						tempFile.delete();
-						tempFile = null;
+					}
+					if (tempFile2.exists()) {
+						tempFile2.delete();
+					}
+					if (tempFile3.exists()) {
+						tempFile3.delete();
+					}
+					if (tempFile4.exists()) {
+						tempFile4.delete();
 					}
 					start_record.setEnabled(true);
 					start_record.setBackgroundResource(R.drawable.start_record);
@@ -131,6 +151,7 @@ public class SetAlarmFragment extends Fragment implements
 				}
 			}
 		};
+		soundTouchClient = new SoundTouchClient(handler);
 		isSDCardExit = Environment.getExternalStorageState().equals(
 				Environment.MEDIA_MOUNTED);
 		SDPathDir = Environment.getExternalStorageDirectory();
@@ -198,7 +219,6 @@ public class SetAlarmFragment extends Fragment implements
 		});
 
 		selectLayout.setOnClickListener(new View.OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent();
@@ -208,7 +228,6 @@ public class SetAlarmFragment extends Fragment implements
 		});
 
 		buttonListener();
-
 		
 		InitExpandableView(view);
 		return view;
@@ -230,7 +249,6 @@ public class SetAlarmFragment extends Fragment implements
 				break;
 			}
 		}
-
 	}
 
 	private void buttonListener() {
@@ -239,13 +257,15 @@ public class SetAlarmFragment extends Fragment implements
 			@Override
 			public void onClick(View v) {
 				if (!isRecording) {
-					initRecorder();
-					startRecorder();
+					initRecorder();   //------------------------------------------------to be changed
+					//startRecorder();
 					isRecording = true;
 					start_record.setBackgroundResource(R.drawable.stop);
-					new Thread(runnable).start();
+					//new Thread(runnable).start();
+					soundTouchClient.start();
 				} else {
-					stopRecorder();
+					//stopRecorder();
+					soundTouchClient.stop();
 					start_record.setEnabled(false);
 					start_record.setBackgroundResource(R.drawable.stop_record);
 					clear.setEnabled(true);
@@ -265,12 +285,22 @@ public class SetAlarmFragment extends Fragment implements
 					tempFile.delete();
 					tempFile = null;
 				}
+				if (tempFile2.exists()) {
+					tempFile2.delete();
+				}
+				if (tempFile3.exists()) {
+					tempFile3.delete();
+				}
+				if (tempFile4.exists()) {
+					tempFile4.delete();
+				}
 				start_record.setEnabled(true);
 				start_record.setBackgroundResource(R.drawable.start_record);
 				clear.setEnabled(false);
 				clear.setTextColor(getResources().getColor(R.color.gray));
 				play.setEnabled(false);
 				record_timeTextView.setText("00:00");
+				ISRECORDED = false;
 			}
 		});
 		// 播放录音
@@ -278,8 +308,8 @@ public class SetAlarmFragment extends Fragment implements
 			@Override
 			public void onClick(View v) {
 				try {
-
-					if (!isPlaying) {
+					
+					if (!isPlaying&&ISRECORDED) {
 						mediaPlayer.setDataSource(tempFile.toString());
 						mediaPlayer.setLooping(false);
 						mediaPlayer.prepare();
@@ -288,7 +318,7 @@ public class SetAlarmFragment extends Fragment implements
 						play.setBackgroundResource(R.drawable.stop);
 						clear.setEnabled(false);
 						clear.setTextColor(getResources().getColor(R.color.gray));
-					} else {
+					} else if(ISRECORDED){
 						mediaPlayer.stop();
 						mediaPlayer.reset();
 						isPlaying = false;
@@ -333,7 +363,7 @@ public class SetAlarmFragment extends Fragment implements
 			public void onClick(View arg0) {
 				if (friend_name != null && friend_number != null
 						&& tempFile != null
-						&& !words_tosay.getText().equals("")) {
+						&& !words_tosay.getText().equals("")&&ISRECORDED) {
 					new Thread(new Runnable() {
 						
 						@Override
@@ -342,17 +372,13 @@ public class SetAlarmFragment extends Fragment implements
 							message.what = UPLOAD_START;
 							handler.sendMessage(message);
 							upload(tempFile);
-							Message message2 = new Message();
-							message2.what = UPLOAD_END;
-							handler.sendMessage(message2);
 						}
 					}).start();
 					
-				} else {
+				} else if(ISRECORDED){
 					Toast.makeText(getActivity(), "请完成所有信息填写",
 							Toast.LENGTH_SHORT).show();
 				}
-
 			}
 		});
 	}
@@ -422,56 +448,23 @@ public class SetAlarmFragment extends Fragment implements
 	 * 准备录音
 	 */
 	private void initRecorder() {
-		recorder = new MediaRecorder();
-		/* 设置音频源 */
-		recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-		/* 设置输出格式 */
-		recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-		/* 设置音频编码器 */
-		recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-
 		try {
 			/* 创建一个临时文件，用来存放录音 */
-			tempFile = File.createTempFile("tempFile", ".amr", SDPathDir);
+			tempFile = File.createTempFile("tempFile", ".mp3", SDPathDir);
+			tempFile2 = File.createTempFile("tempFile", ".mp3", SDPathDir);
+			tempFile3 = File.createTempFile("tempFile", ".mp3", SDPathDir);
+			tempFile4 = File.createTempFile("tempFile", ".mp3", SDPathDir);
+			Filename_1 = tempFile.getAbsolutePath();
+			Filename_2 = tempFile2.getAbsolutePath();
+			Filename_3 = tempFile3.getAbsolutePath();
+			Filename_4 = tempFile4.getAbsolutePath();
+			soundTouchClient.setfilename(Filename_1, Filename_2, Filename_3, Filename_4);
+			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		/* 设置录音文件 */
-		recorder.setOutputFile(tempFile.getAbsolutePath());
-	}
-
-	/**
-	 * 开始录音
-	 */
-	private void startRecorder() {
-		try {
-			if (!isSDCardExit) {
-				Toast.makeText(getActivity(), "请插入SD卡", Toast.LENGTH_LONG)
-						.show();
-				return;
-			}
-			recorder.prepare();
-			recorder.start();
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	/**
-	 * 停止录音
-	 */
-	private void stopRecorder() {
-		if (recorder != null) {
-			recorder.stop();
-			recorder.release();// 释放资源
-			recorder = null;
-		}
-	}
 
 	/**
 	 * 上传文件
@@ -530,6 +523,9 @@ public class SetAlarmFragment extends Fragment implements
 				ds.flush();
 				/* 获取响应码 */
 				if (conn.getResponseCode() == 200) {
+					Message message2 = new Message();
+					message2.what = UPLOAD_END;
+					handler.sendMessage(message2);
 					return true;
 				}
 			}

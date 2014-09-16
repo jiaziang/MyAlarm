@@ -18,6 +18,10 @@ public class SoundTouchClient implements OnCompletionListener{
 	private SoundTouchThread soundTouchThread;
 	private MediaPlayer mediaPlayer;
 	private Handler mainHandler;
+	public String Filename_1;
+	public String Filename_2;
+	public String Filename_3;
+	public String Filename_4;
 	
 	private Handler handler = new Handler(){
 		
@@ -25,10 +29,10 @@ public class SoundTouchClient implements OnCompletionListener{
 			
 			switch (msg.what) {
 			
-			case Settings.MSG_FILE_SAVE_SUCCESS:				
+/*			case Settings.MSG_FILE_SAVE_SUCCESS:				
 				play();
 				
-				break;
+				break;*/
 				
 			}
 		};
@@ -39,11 +43,20 @@ public class SoundTouchClient implements OnCompletionListener{
 		this.mainHandler = mainHandler;
 	}
 	
+	public SoundTouchClient(Handler mainHandler,String Filename1,String Filename2,String Filename3,String Filename4){
+		this.mainHandler = mainHandler;
+		this.Filename_1 = Filename1;
+		this.Filename_2 = Filename2;
+		this.Filename_3 = Filename3;
+		this.Filename_4 = Filename4;
+		
+	}
+	
 	public void start(){
 		recordingThread = new RecordingThread(handler, recordQueue);
 		recordingThread.start();
 		
-		soundTouchThread = new SoundTouchThread(handler, recordQueue);
+		soundTouchThread = new SoundTouchThread(handler, recordQueue, Filename_1,Filename_2,Filename_3,Filename_4);
 		soundTouchThread.start();
 	}
 	
@@ -52,7 +65,7 @@ public class SoundTouchClient implements OnCompletionListener{
 		soundTouchThread.stopSoundTounch();
 	}
 	
-	public void play() {
+/*	public void play() {
 		
 		try {
 			
@@ -69,6 +82,13 @@ public class SoundTouchClient implements OnCompletionListener{
 			Log.e("soundtouch", e.getMessage());
 		} 
 		
+	}*/
+	
+	public void setfilename(String Filename1,String Filename2,String Filename3,String Filename4){
+		this.Filename_1 = Filename1;
+		this.Filename_2 = Filename2;
+		this.Filename_3 = Filename3;
+		this.Filename_4 = Filename4;
 	}
 
 	@Override

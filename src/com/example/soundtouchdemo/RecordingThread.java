@@ -43,7 +43,7 @@ public class RecordingThread extends Thread {
 				if (state == AudioRecord.STATE_INITIALIZED) {
 					
 					audioRecord.startRecording();			
-					handler.obtainMessage(Settings.MSG_RECORDING_START).sendToTarget();										
+					//shandler.obtainMessage(Settings.MSG_RECORDING_START).sendToTarget();										
 					boolean flag = true;
 					
 					while (!setToStopped) {
@@ -61,47 +61,42 @@ public class RecordingThread extends Thread {
 								continue;
 								
 							}else{													
-								handler.obtainMessage(Settings.MSG_RECORDING_START).sendToTarget();
+								//handler.obtainMessage(Settings.MSG_RECORDING_START).sendToTarget();
 								flag = false;												
 							}
 						}						
 						
 						short[] data = new short[len]; 
-						System.arraycopy(buffer, 0, data, 0, len);	
-						
+						System.arraycopy(buffer, 0, data, 0, len);							
 						// bolcking queue
 						recordQueue.add(data);							
 					
 					}					
 					
-					handler.sendEmptyMessage(Settings.MSG_RECORDING_STOP);
+					//handler.sendEmptyMessage(Settings.MSG_RECORDING_STOP);
 					audioRecord.stop();
 
 				} else {
 					
-					handler.sendEmptyMessage(Settings.MSG_RECORDING_STATE_ERROR);
+					//handler.sendEmptyMessage(Settings.MSG_RECORDING_STATE_ERROR);
 
 				}
 
 			} catch (Exception e) {
 				
-				handler.sendEmptyMessage(Settings.MSG_RECORDING_EXCEPTION);	
+				//handler.sendEmptyMessage(Settings.MSG_RECORDING_EXCEPTION);	
 				
 			} finally {
 							
-				try {				
-					
+				try {								
 					audioRecord.release();
-					audioRecord = null;
-					
-					handler.sendEmptyMessage(Settings.MSG_RECORDING_RELEASE);			
-										
+					audioRecord = null;					
+					//handler.sendEmptyMessage(Settings.MSG_RECORDING_RELEASE);												
 				} catch (Exception e) {
 					
 				}
 			}
 			
 		}
-					
 	
 }
