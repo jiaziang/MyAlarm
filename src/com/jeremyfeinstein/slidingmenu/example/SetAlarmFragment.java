@@ -50,9 +50,9 @@ public class SetAlarmFragment extends Fragment implements
 	private TextView selected_friendNameTextView;
 	private TextView record_timeTextView;
 	private TextView words_tosay;
-	private Button start_record;
-	private Button clear;
-	private Button play;
+	private Button start_record;         //开始录音Button
+	private Button clear;			    //清楚Button
+	private Button play; 				//播放Button
 	private Button submit;
 	private ProgressBar uploadBar;
 	private RelativeLayout timepickLayout;
