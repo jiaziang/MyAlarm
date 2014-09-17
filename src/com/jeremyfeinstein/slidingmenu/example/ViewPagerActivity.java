@@ -49,7 +49,6 @@ public class ViewPagerActivity extends BaseActivity {
     public static boolean DATKAOK = false ;
     public static Contacts contacts;
     private long exitTime = 0;
-    private Runtime runtime;
     public static boolean isFROMSETTTING = false;
 
 	public ViewPagerActivity() {
@@ -144,7 +143,6 @@ public class ViewPagerActivity extends BaseActivity {
 				}
 			}
 		};
-		runtime = Runtime.getRuntime();
 		
 		//初始界面
 		my_friend.setTextColor(getResources().getColor(R.color.red));
@@ -254,6 +252,7 @@ public class ViewPagerActivity extends BaseActivity {
                 // 将系统当前的时间赋值给exitTime  
                 exitTime = System.currentTimeMillis();  
             } else {  
+            	//如果是来自侧边闹钟按钮
             	isFROMSETTTING = false;
             	return super.onKeyDown(keyCode, event); 
             }  

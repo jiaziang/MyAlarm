@@ -29,7 +29,7 @@
             android:gravity="center"
             android:paddingBottom="7dp"
             android:paddingTop="7dp"
-            android:text="叫床"
+            android:text="叫Ta"
             android:textColor="#000000"
             android:textSize="14dp" />
 

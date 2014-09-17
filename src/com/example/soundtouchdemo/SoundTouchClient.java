@@ -30,8 +30,7 @@ public class SoundTouchClient implements OnCompletionListener{
 			switch (msg.what) {
 			
 			case SetAlarmFragment.RECORD_FINISHED:			
-				mainHandler.sendEmptyMessage(SetAlarmFragment.RECORD_FINISHED);
-				
+				mainHandler.sendEmptyMessage(SetAlarmFragment.RECORD_FINISHED);				
 				break;
 				
 			}

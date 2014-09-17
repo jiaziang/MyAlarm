@@ -59,9 +59,9 @@ public class SoundTouchThread extends Thread {
 
 		soundtouch.setSampleRate(16000);
 		soundtouch.setChannels(1);
-		soundtouch.setPitchSemiTones(10);
-		soundtouch.setRateChange(-0.7f);
-		soundtouch.setTempoChange(0.5f);
+		soundtouch.setPitchSemiTones(0);
+		soundtouch.setRateChange(1.0f);
+		soundtouch.setTempoChange(1.0f);
 
 		soundtouch2.setSampleRate(16000);
 		soundtouch2.setChannels(1);
