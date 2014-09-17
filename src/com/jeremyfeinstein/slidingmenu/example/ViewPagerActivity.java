@@ -1,6 +1,7 @@
 package com.jeremyfeinstein.slidingmenu.example;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +19,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -47,6 +49,8 @@ public class ViewPagerActivity extends BaseActivity {
     public static boolean DATKAOK = false ;
     public static Contacts contacts;
     private long exitTime = 0;
+    private Runtime runtime;
+    public static boolean isFROMSETTTING = false;
 
 	public ViewPagerActivity() {
 		super(R.string.viewpager);
@@ -140,6 +144,7 @@ public class ViewPagerActivity extends BaseActivity {
 				}
 			}
 		};
+		runtime = Runtime.getRuntime();
 		
 		//初始界面
 		my_friend.setTextColor(getResources().getColor(R.color.red));
@@ -243,12 +248,13 @@ public class ViewPagerActivity extends BaseActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {  
         if (KeyEvent.KEYCODE_BACK == keyCode) {  
             // 判断是否在两秒之内连续点击返回键，是则退出，否则不退出  
-            if (System.currentTimeMillis() - exitTime > 2000) {  
+            if (System.currentTimeMillis() - exitTime > 2000&&(!isFROMSETTTING)) {  
                 Toast.makeText(getApplicationContext(), "再按一次退出程序",  
                         Toast.LENGTH_SHORT).show();  
                 // 将系统当前的时间赋值给exitTime  
                 exitTime = System.currentTimeMillis();  
             } else {  
+            	isFROMSETTTING = false;
             	return super.onKeyDown(keyCode, event); 
             }  
             return true;  

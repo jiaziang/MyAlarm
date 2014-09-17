@@ -4,20 +4,14 @@ import java.io.File;
 import java.io.IOException;
 
 import com.jiaziang8.alarm.service.MyService;
-import com.jiaziang8.alarm.ui.RepeatPreference;
-import com.jiaziang8.alarm.util.Constants;
-
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.preference.Preference;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -33,9 +27,6 @@ public class SetingFragment extends Fragment {
 	private RelativeLayout notificationTextView;
 	private RelativeLayout reviewRelativeLayout;
 	private RelativeLayout settingsRelativeLayout;
-	private Preference mTimePref; // 时间
-	private RepeatPreference mRepeatPref; // 重复
-	private SharedPreferences sharedPreferences;
 	private ImageView userheadImageView;
 	private File cache;
 	public static Activity instance = null;
@@ -46,8 +37,7 @@ public class SetingFragment extends Fragment {
 	public void onCreate(Bundle savedInstance) {
 		super.onCreate(savedInstance);
 		instance = getActivity();
-		sharedPreferences = getActivity().getSharedPreferences("userInfo",
-				Context.MODE_WORLD_READABLE);
+
 		cache = new File(Environment.getExternalStorageDirectory(),
 				"MyRecord/cache");
 		if (!cache.exists()) {
@@ -85,6 +75,7 @@ public class SetingFragment extends Fragment {
 			public void onClick(View arg0) {
 				ViewPagerActivity.changeToHomepage();
 				try {
+					ViewPagerActivity.isFROMSETTTING = true;
 					Runtime runtime = Runtime.getRuntime();
 					runtime.exec("input keyevent " + KeyEvent.KEYCODE_BACK);
 				} catch (IOException e) {

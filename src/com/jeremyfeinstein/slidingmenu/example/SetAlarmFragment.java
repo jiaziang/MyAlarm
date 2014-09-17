@@ -324,7 +324,7 @@ public class SetAlarmFragment extends Fragment implements
 					// startRecorder();
 					isRecording = true;
 					start_record.setBackgroundResource(R.drawable.stop);
-					// new Thread(runnable).start();
+					 new Thread(runnable).start();
 					soundTouchClient.start();
 				} else {
 					// stopRecorder();
