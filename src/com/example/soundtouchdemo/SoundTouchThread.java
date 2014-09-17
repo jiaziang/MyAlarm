@@ -166,8 +166,7 @@ public class SoundTouchThread extends Thread {
 				out2.write(bytes);
 			}
 			out2.close();
-			
-			
+						
 			
 			FileOutputStream out3 = new FileOutputStream(Filename_3);
 			for (byte[] bytes : wavDatas3) {
