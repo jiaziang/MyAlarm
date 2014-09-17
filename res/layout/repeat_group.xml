@@ -8,11 +8,11 @@
         android:id="@+id/repeat_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="12dp"
+        android:paddingBottom="14dp"
         android:paddingLeft="22dp"
-        android:paddingTop="12dp"
+        android:paddingTop="14dp"
         android:text="重复"
-        android:textSize="18dp" />
+        android:textSize="16dp" />
 
     <TextView
         android:id="@+id/repead_value"
@@ -27,7 +27,7 @@
         android:singleLine="true"
         android:text="每天"
         android:textColor="#9E9E9E"
-        android:textSize="18dp" />
+        android:textSize="16dp" />
 
     <ImageView
         android:id="@+id/repeat_arrow"

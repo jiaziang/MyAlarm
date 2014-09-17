@@ -28,6 +28,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,10 +50,15 @@ public class SetAlarmFragment extends Fragment implements
 	private TextView selected_friendNameTextView;
 	private TextView record_timeTextView;
 	private TextView words_tosay;
-	private Button start_record;         //开始录音Button
-	private Button clear;			    //清楚Button
-	private Button play; 				//播放Button
+	private Button start_record; // 开始录音Button
+	private Button clear; // 清楚Button
+	private Button play; // 播放Button
 	private Button submit;
+	private Button voice1;
+	private Button voice2;
+	private Button voice3;
+	private Button voice4;
+	private int voicenumber;
 	private ProgressBar uploadBar;
 	private RelativeLayout timepickLayout;
 	private RelativeLayout selectLayout;
@@ -66,6 +72,7 @@ public class SetAlarmFragment extends Fragment implements
 	private MediaRecorder recorder;
 	private MediaPlayer mediaPlayer;
 	private File SDPathDir;
+	private File currentFile;
 	private File tempFile;
 	private File tempFile2;
 	private File tempFile3;
@@ -82,17 +89,17 @@ public class SetAlarmFragment extends Fragment implements
 	private static final int UPLOAD_END = 3;
 	public static final int RECORD_FINISHED = 4;
 	private View view;
-	public  static boolean ISRECORDED =false;
-	
+	public static boolean ISRECORDED = false;
+
 	private SoundTouchClient soundTouchClient;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//Inflater inflater = new Inflater();
+		// Inflater inflater = new Inflater();
 		record_time = 0;
 		mDays = 0;
-		ISRECORDED =false;
+		ISRECORDED = false;
 		handler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
@@ -108,16 +115,17 @@ public class SetAlarmFragment extends Fragment implements
 					}
 					record_timeTextView.setText(timeString);
 					break;
-				case UPLOAD_START :
+				case UPLOAD_START:
 					uploadBar.setVisibility(View.VISIBLE);
 					break;
 				case UPLOAD_END:
 					uploadBar.setVisibility(View.INVISIBLE);
-					Toast.makeText(getActivity(), "上传成功～", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getActivity(), "上传成功～", Toast.LENGTH_SHORT)
+							.show();
 					mHour = 0;
 					mMinutes = 0;
 					timeTextView.setText("00:00");
-					words_tosay .setText("");
+					words_tosay.setText("");
 					if (tempFile.exists()) {
 						tempFile.delete();
 					}
@@ -132,7 +140,7 @@ public class SetAlarmFragment extends Fragment implements
 					}
 					start_record.setEnabled(true);
 					start_record.setBackgroundResource(R.drawable.start_record);
-					clear.setEnabled(false);					
+					clear.setEnabled(false);
 					clear.setTextColor(getResources().getColor(R.color.gray));
 					play.setEnabled(false);
 					mDays = 0;
@@ -143,10 +151,23 @@ public class SetAlarmFragment extends Fragment implements
 					selected_friendNameTextView.setText("未选择");
 					friend_name = null;
 					friend_number = null;
-				case RECORD_FINISHED:    // 录音完成
-					//Toast.makeText(getActivity(), "处理完成", Toast.LENGTH_SHORT).show();
-					
-					
+					voice1.setEnabled(false);
+					voice2.setEnabled(false);
+					voice3.setEnabled(false);
+					voice4.setEnabled(false);
+					setVoiceChange(0);
+					Log.v("Alarm", "voice1:enable"+voice1.isEnabled()+"voice2:enable+"+voice2.isEnabled());
+					break;
+				case RECORD_FINISHED: // 录音完成
+					// Toast.makeText(getActivity(), "处理完成",
+					// Toast.LENGTH_SHORT).show();
+					voice1.setEnabled(true);
+					voice2.setEnabled(true);
+					voice3.setEnabled(true);
+					voice4.setEnabled(true);
+					setVoiceChange(1);
+					break;
+
 				default:
 					break;
 				}
@@ -164,7 +185,7 @@ public class SetAlarmFragment extends Fragment implements
 
 		isRecording = false;
 		isPlaying = false;
-		
+
 		InitDatas();
 
 		runnable = new Runnable() {
@@ -195,13 +216,14 @@ public class SetAlarmFragment extends Fragment implements
 			Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mediaPlayer = new MediaPlayer();
-		if(view ==null){
+		if (view == null) {
 			view = inflater.inflate(R.layout.setalarm, null);
-		}		
+		}
 		timeTextView = (TextView) view.findViewById(R.id.time_value);
 		selectLayout = (RelativeLayout) view
 				.findViewById(R.id.select_friend_layout);
-		selected_friendNameTextView = (TextView)view.findViewById(R.id.friendname_text);
+		selected_friendNameTextView = (TextView) view
+				.findViewById(R.id.friendname_text);
 		record_timeTextView = (TextView) view.findViewById(R.id.record_time);
 		words_tosay = (TextView) view.findViewById(R.id.words_tosay);
 		start_record = (Button) view.findViewById(R.id.start_record);
@@ -211,7 +233,46 @@ public class SetAlarmFragment extends Fragment implements
 		clear.setTextColor(getResources().getColor(R.color.gray));
 		play = (Button) view.findViewById(R.id.play);
 		submit = (Button) view.findViewById(R.id.submit);
-		uploadBar = (ProgressBar)view.findViewById(R.id.uploading_progressbar);
+		voice1 = (Button) view.findViewById(R.id.voice1_button);
+		voice2 = (Button) view.findViewById(R.id.voice2_button);
+		voice3 = (Button) view.findViewById(R.id.voice3_button);
+		voice4 = (Button) view.findViewById(R.id.voice4_button);
+		voice1.setEnabled(false);
+		voice2.setEnabled(false);
+		voice3.setEnabled(false);
+		voice4.setEnabled(false);
+		setVoiceChange(0);
+
+		voice1.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+					setVoiceChange(1);
+				
+			}
+		});
+		
+		voice2.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+					setVoiceChange(2);
+			}
+		});
+		
+		voice3.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+					setVoiceChange(3);
+			}
+		});
+		
+		voice4.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+					setVoiceChange(4);
+			}
+		});
+
+		uploadBar = (ProgressBar) view.findViewById(R.id.uploading_progressbar);
 		timepickLayout.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -229,7 +290,7 @@ public class SetAlarmFragment extends Fragment implements
 		});
 
 		buttonListener();
-		
+
 		InitExpandableView(view);
 		return view;
 	}
@@ -258,14 +319,15 @@ public class SetAlarmFragment extends Fragment implements
 			@Override
 			public void onClick(View v) {
 				if (!isRecording) {
-					initRecorder();   //------------------------------------------------to be changed
-					//startRecorder();
+					initRecorder(); // ------------------------------------------------to
+									// be changed
+					// startRecorder();
 					isRecording = true;
 					start_record.setBackgroundResource(R.drawable.stop);
-					//new Thread(runnable).start();
+					// new Thread(runnable).start();
 					soundTouchClient.start();
 				} else {
-					//stopRecorder();
+					// stopRecorder();
 					soundTouchClient.stop();
 					start_record.setEnabled(false);
 					start_record.setBackgroundResource(R.drawable.stop_record);
@@ -302,6 +364,11 @@ public class SetAlarmFragment extends Fragment implements
 				play.setEnabled(false);
 				record_timeTextView.setText("00:00");
 				ISRECORDED = false;
+				voice1.setEnabled(false);
+				voice2.setEnabled(false);
+				voice3.setEnabled(false);
+				voice4.setEnabled(false);
+				setVoiceChange(0);
 			}
 		});
 		// 播放录音
@@ -309,17 +376,18 @@ public class SetAlarmFragment extends Fragment implements
 			@Override
 			public void onClick(View v) {
 				try {
-					
-					if (!isPlaying&&ISRECORDED) {
-						mediaPlayer.setDataSource(tempFile.toString());
+
+					if (!isPlaying && ISRECORDED) {
+						mediaPlayer.setDataSource(currentFile.toString());
 						mediaPlayer.setLooping(false);
 						mediaPlayer.prepare();
 						mediaPlayer.start();
 						isPlaying = true;
 						play.setBackgroundResource(R.drawable.stop);
 						clear.setEnabled(false);
-						clear.setTextColor(getResources().getColor(R.color.gray));
-					} else if(ISRECORDED){
+						clear.setTextColor(getResources()
+								.getColor(R.color.gray));
+					} else if (ISRECORDED) {
 						mediaPlayer.stop();
 						mediaPlayer.reset();
 						isPlaying = false;
@@ -339,44 +407,43 @@ public class SetAlarmFragment extends Fragment implements
 				}
 			}
 		});
-		
-		
-		mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {			
-			@Override
-			public void onCompletion(MediaPlayer arg0) {
-				try {
-					mediaPlayer.stop();
-					mediaPlayer.reset();
-					isPlaying = false;
-					play.setBackgroundResource(R.drawable.play);
-					clear.setEnabled(true);
-					clear.setTextColor(getResources().getColor(R.color.red));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
 
-				
-			}
-		});
-		
+		mediaPlayer
+				.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+					@Override
+					public void onCompletion(MediaPlayer arg0) {
+						try {
+							mediaPlayer.stop();
+							mediaPlayer.reset();
+							isPlaying = false;
+							play.setBackgroundResource(R.drawable.play);
+							clear.setEnabled(true);
+							clear.setTextColor(getResources().getColor(
+									R.color.red));
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+
+					}
+				});
+
 		submit.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				if (friend_name != null && friend_number != null
-						&& tempFile != null
-						&& !words_tosay.getText().equals("")&&ISRECORDED) {
+						&& currentFile != null
+						&& !words_tosay.getText().equals("") && ISRECORDED) {
 					new Thread(new Runnable() {
-						
 						@Override
 						public void run() {
 							Message message = new Message();
 							message.what = UPLOAD_START;
 							handler.sendMessage(message);
-							upload(tempFile);
+							upload(currentFile);
 						}
 					}).start();
-					
-				} else if(ISRECORDED){
+
+				} else if (ISRECORDED) {
 					Toast.makeText(getActivity(), "请完成所有信息填写",
 							Toast.LENGTH_SHORT).show();
 				}
@@ -392,7 +459,7 @@ public class SetAlarmFragment extends Fragment implements
 		updateTime();
 	}
 
-	//更新界面上显示的时间
+	// 更新界面上显示的时间
 	private void updateTime() {
 		String mhourString = "" + mHour;
 		String mminuteString = "" + mMinutes;
@@ -452,9 +519,9 @@ public class SetAlarmFragment extends Fragment implements
 		try {
 			/* 创建一个临时文件，用来存放录音 */
 			File[] datafiles = SDPathDir.listFiles();
-			for(File file:datafiles){
-				if(!file.isDirectory()){
-					if(file.getName().endsWith(".mp3")){
+			for (File file : datafiles) {
+				if (!file.isDirectory()) {
+					if (file.getName().endsWith(".mp3")) {
 						file.delete();
 					}
 				}
@@ -467,8 +534,9 @@ public class SetAlarmFragment extends Fragment implements
 			Filename_2 = tempFile2.getAbsolutePath();
 			Filename_3 = tempFile3.getAbsolutePath();
 			Filename_4 = tempFile4.getAbsolutePath();
-			soundTouchClient.setfilename(Filename_1, Filename_2, Filename_3, Filename_4);
-			
+			soundTouchClient.setfilename(Filename_1, Filename_2, Filename_3,
+					Filename_4);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -510,9 +578,9 @@ public class SetAlarmFragment extends Fragment implements
 				 */
 				ds.writeBytes(hyphens + boundary + end);
 				byte[] aaa = new byte[1024];
-				String bbbString =  "Content-Disposition: form-data; "
-						+ "name=\"file1\";filename=\"" + file.getName() +makeMessageString()+"\""
-						+ end;
+				String bbbString = "Content-Disposition: form-data; "
+						+ "name=\"file1\";filename=\"" + file.getName()
+						+ makeMessageString() + "\"" + end;
 				aaa = bbbString.getBytes("utf-8");
 				ds.write(aaa);
 				ds.writeBytes(end);
@@ -547,65 +615,64 @@ public class SetAlarmFragment extends Fragment implements
 	}
 
 	private String makeMessageString() {
-		//DaysOfWeek daysOfWeek = new DaysOfWeek(mDays);
+		// DaysOfWeek daysOfWeek = new DaysOfWeek(mDays);
 		long alarm_time = calculateAlarm(mHour, mMinutes, mDays);
 		String messageString = "_" + ViewPagerActivity.account + "_"
 				+ friend_number + "_" + mDays + "_" + mHour + "_" + mMinutes
-				+ "_" + words_tosay.getText().toString()+"_"+alarm_time;
+				+ "_" + words_tosay.getText().toString() + "_" + alarm_time;
 		try {
-			messageString = new String(messageString.getBytes(),"utf-8");
+			messageString = new String(messageString.getBytes(), "utf-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		return messageString;
 	}
-	
-    private long calculateAlarm(int hour, int minute,
-            int mDays) {
 
-        // start with now
-        Calendar c = Calendar.getInstance();
-        c.setTimeInMillis(System.currentTimeMillis());
+	private long calculateAlarm(int hour, int minute, int mDays) {
 
-        int nowHour = c.get(Calendar.HOUR_OF_DAY);
-        int nowMinute = c.get(Calendar.MINUTE);
+		// start with now
+		Calendar c = Calendar.getInstance();
+		c.setTimeInMillis(System.currentTimeMillis());
 
-        // if alarm is behind current time, advance one day
-        if (hour < nowHour  ||
-            hour == nowHour && minute <= nowMinute) {
-            c.add(Calendar.DAY_OF_YEAR, 1);
-        }
-        c.set(Calendar.HOUR_OF_DAY, hour);
-        c.set(Calendar.MINUTE, minute);
-        c.set(Calendar.SECOND, 0);
-        c.set(Calendar.MILLISECOND, 0);
+		int nowHour = c.get(Calendar.HOUR_OF_DAY);
+		int nowMinute = c.get(Calendar.MINUTE);
 
-        int addDays = getNextAlarm(c,mDays);
-        if (addDays > 0) c.add(Calendar.DAY_OF_WEEK, addDays);
-        return c.getTimeInMillis();
-    }
-    
-    public int getNextAlarm(Calendar c,int mDays) {
-        if (mDays == 0) {
-            return -1;
-        }
+		// if alarm is behind current time, advance one day
+		if (hour < nowHour || hour == nowHour && minute <= nowMinute) {
+			c.add(Calendar.DAY_OF_YEAR, 1);
+		}
+		c.set(Calendar.HOUR_OF_DAY, hour);
+		c.set(Calendar.MINUTE, minute);
+		c.set(Calendar.SECOND, 0);
+		c.set(Calendar.MILLISECOND, 0);
 
-        int today = (c.get(Calendar.DAY_OF_WEEK) + 5) % 7;
+		int addDays = getNextAlarm(c, mDays);
+		if (addDays > 0)
+			c.add(Calendar.DAY_OF_WEEK, addDays);
+		return c.getTimeInMillis();
+	}
 
-        int day = 0;
-        int dayCount = 0;
-        for (; dayCount < 7; dayCount++) {
-            day = (today + dayCount) % 7;
-            if (isSet(day,mDays)) {
-                break;
-            }
-        }
-        return dayCount;
-    }
-    
-    private boolean isSet(int day,int mDays) {
-        return ((mDays & (1 << day)) > 0);
-    }
+	public int getNextAlarm(Calendar c, int mDays) {
+		if (mDays == 0) {
+			return -1;
+		}
+
+		int today = (c.get(Calendar.DAY_OF_WEEK) + 5) % 7;
+
+		int day = 0;
+		int dayCount = 0;
+		for (; dayCount < 7; dayCount++) {
+			day = (today + dayCount) % 7;
+			if (isSet(day, mDays)) {
+				break;
+			}
+		}
+		return dayCount;
+	}
+
+	private boolean isSet(int day, int mDays) {
+		return ((mDays & (1 << day)) > 0);
+	}
 
 	public static int getmDays() {
 		return mDays;
@@ -613,6 +680,55 @@ public class SetAlarmFragment extends Fragment implements
 
 	public static void setmDays(int mDays) {
 		SetAlarmFragment.mDays = mDays;
+	}
+
+	private void setVoiceChange(int voicenumber) {
+			this.voicenumber = voicenumber;
+			switch (voicenumber) {
+			case 0:
+				voice1.setBackgroundResource(R.drawable.voice1_off);
+				voice2.setBackgroundResource(R.drawable.voice2_off);
+				voice3.setBackgroundResource(R.drawable.voice3_off);
+				voice4.setBackgroundResource(R.drawable.voice4_off);
+				currentFile = null;
+				break;
+			case 1:
+				voice1.setBackgroundResource(R.drawable.voice1_on);
+				voice2.setBackgroundResource(R.drawable.voice2_off);
+				voice3.setBackgroundResource(R.drawable.voice3_off);
+				voice4.setBackgroundResource(R.drawable.voice4_off);
+				currentFile = tempFile;
+				break;
+			case 2:
+				voice1.setBackgroundResource(R.drawable.voice1_off);
+				voice2.setBackgroundResource(R.drawable.voice2_on);
+				voice3.setBackgroundResource(R.drawable.voice3_off);
+				voice4.setBackgroundResource(R.drawable.voice4_off);
+				currentFile = tempFile2;
+				break;
+			case 3:
+				voice1.setBackgroundResource(R.drawable.voice1_off);
+				voice2.setBackgroundResource(R.drawable.voice2_off);
+				voice3.setBackgroundResource(R.drawable.voice3_on);
+				voice4.setBackgroundResource(R.drawable.voice4_off);
+				currentFile = tempFile3;
+				break;
+			case 4:
+				voice1.setBackgroundResource(R.drawable.voice1_off);
+				voice2.setBackgroundResource(R.drawable.voice2_off);
+				voice3.setBackgroundResource(R.drawable.voice3_off);
+				voice4.setBackgroundResource(R.drawable.voice4_on);
+				currentFile = tempFile4;
+				break;
+			default:
+				break;
+			
+		}
+
+	}
+
+	private void toggleVoiceButton() {
+		// if(isvoice1)
 	}
 
 	@Override
