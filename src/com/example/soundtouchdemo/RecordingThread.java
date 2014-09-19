@@ -1,10 +1,12 @@
 package com.example.soundtouchdemo;
 
 import java.util.concurrent.BlockingQueue;
+
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.os.Handler;
+import android.util.Log;
 
 public class RecordingThread extends Thread {
 	
@@ -34,10 +36,11 @@ public class RecordingThread extends Thread {
 	public void run(){	
 			AudioRecord audioRecord = null;		
 			try {					
-				short[] buffer = new short[bufferSize];
+				//Log.v("Alarm", "bufferLength:"+bufferSize);
+				short[] buffer = new short[bufferSize];  //------1280
 				audioRecord = new AudioRecord(
 						MediaRecorder.AudioSource.MIC, FREQUENCY,
-						CHANNEL, ENCODING, bufferSize);
+						CHANNEL, ENCODING, bufferSize*2);
 				
 				int state = audioRecord.getState();				
 				if (state == AudioRecord.STATE_INITIALIZED) {
@@ -49,6 +52,7 @@ public class RecordingThread extends Thread {
 					while (!setToStopped) {
 						
 						int len = audioRecord.read(buffer, 0, buffer.length);	
+						Log.v("Alarm", "hufferLength~~~~~~~~~~~~~"+buffer.length);
 						
 						// 去掉全0数据
 						if(flag){
@@ -61,16 +65,14 @@ public class RecordingThread extends Thread {
 								continue;
 								
 							}else{													
-								//handler.obtainMessage(Settings.MSG_RECORDING_START).sendToTarget();
 								flag = false;												
 							}
 						}						
 						
+						Log.v("Alarm", "len:"+len);
 						short[] data = new short[len]; 
 						System.arraycopy(buffer, 0, data, 0, len);							
-						// bolcking queue
-						recordQueue.add(data);							
-					
+						recordQueue.add(data);												
 					}					
 					
 					//handler.sendEmptyMessage(Settings.MSG_RECORDING_STOP);

@@ -1,6 +1,7 @@
 package com.example.soundtouchdemo;
 
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -26,6 +27,7 @@ public class SoundTouchThread extends Thread {
 	private LinkedList<byte[]> wavDatas2 = new LinkedList<byte[]>();
 	private LinkedList<byte[]> wavDatas3 = new LinkedList<byte[]>();
 	private LinkedList<byte[]> wavDatas4 = new LinkedList<byte[]>();
+	private ArrayList<short[]>  recordAllDatas = new ArrayList<short[]>(); 
 	public String Filename_1;
 	public String Filename_2;
 	public String Filename_3;
@@ -59,9 +61,9 @@ public class SoundTouchThread extends Thread {
 
 		soundtouch.setSampleRate(16000);
 		soundtouch.setChannels(1);
-		soundtouch.setPitchSemiTones(0);
-		soundtouch.setRateChange(1.0f);
-		soundtouch.setTempoChange(1.0f);
+		soundtouch.setPitchSemiTones(10);
+		soundtouch.setRateChange(-0.7f);
+		soundtouch.setTempoChange(0.5f);
 
 		soundtouch2.setSampleRate(16000);
 		soundtouch2.setChannels(1);
@@ -101,21 +103,24 @@ public class SoundTouchThread extends Thread {
 					short[] buffer;					
 					do {
 						buffer = soundtouch.receiveSamples();
+						
 						byte[] mp3Datas = mp3Encode.encode(buffer, buffer.length);
+						Log.v("Alarm", "recodingdata:"+recordingData.length+"  buffer:"+buffer.length+"  mp3Data:"+mp3Datas.length);
 						wavDatas.add(mp3Datas);
 					} while (buffer.length > 0);
 					
 					
-					soundtouch2.putSamples(recordingData, recordingData.length);
+					soundtouch.putSamples(recordingData, recordingData.length);
 					short[] buffer2;
 					do {
-						buffer2 = soundtouch2.receiveSamples();
+						buffer2 = soundtouch.receiveSamples();
 						byte[] mp3Datas = mp3Encode.encode(buffer2, buffer2.length);
+						Log.v("Alarm", "recodingdata:"+recordingData.length+"  buffer2:"+buffer2.length+"  mp3Data:"+mp3Datas.length);
 						wavDatas2.add(mp3Datas);	
 					} while (buffer2.length > 0);
 					
 					
-					soundtouch3.putSamples(recordingData, recordingData.length);
+			/*		soundtouch3.putSamples(recordingData, recordingData.length);
 					short[] buffer3;
 					do {
 						buffer3 = soundtouch3.receiveSamples();
@@ -129,7 +134,7 @@ public class SoundTouchThread extends Thread {
 						buffer4 = soundtouch4.receiveSamples();
 						byte[] mp3Datas = mp3Encode.encode(buffer4, buffer4.length);
 						wavDatas4.add(mp3Datas);					
-					} while (buffer4.length > 0);		
+					} while (buffer4.length > 0);	*/	
 					
 				}
 
@@ -141,20 +146,8 @@ public class SoundTouchThread extends Thread {
 			}
 		}
 
-		// 计算文件长度
-		int fileLength = 0;
-		int fileLength2 = 0;
-		for (byte[] bytes : wavDatas) {
-			fileLength += bytes.length;
-		}
-		for (byte[] bytes : wavDatas2) {
-			fileLength2 += bytes.length;
-		}
-		Log.v("aaa", "length:" + fileLength + "length2:" + fileLength2);
-
 		try {
 			
-			Log.v("Alarm", "Filename:"+Filename_1);
 			FileOutputStream out = new FileOutputStream(Filename_1);
 			for (byte[] bytes : wavDatas) {
 				out.write(bytes);
@@ -169,13 +162,13 @@ public class SoundTouchThread extends Thread {
 						
 			
 			FileOutputStream out3 = new FileOutputStream(Filename_3);
-			for (byte[] bytes : wavDatas3) {
+			for (byte[] bytes : wavDatas) {
 				out3.write(bytes);
 			}
 			out3.close();
 			
 			FileOutputStream out4 = new FileOutputStream(Filename_4);
-			for (byte[] bytes : wavDatas4) {
+			for (byte[] bytes : wavDatas) {
 				out4.write(bytes);
 			}
 			out4.close();
@@ -184,7 +177,6 @@ public class SoundTouchThread extends Thread {
 			handler.sendEmptyMessage(SetAlarmFragment.RECORD_FINISHED);
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 

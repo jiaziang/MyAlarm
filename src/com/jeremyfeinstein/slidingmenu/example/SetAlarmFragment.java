@@ -151,20 +151,12 @@ public class SetAlarmFragment extends Fragment implements
 					selected_friendNameTextView.setText("未选择");
 					friend_name = null;
 					friend_number = null;
-/*					voice1.setEnabled(false);
-					voice2.setEnabled(false);
-					voice3.setEnabled(false);
-					voice4.setEnabled(false);*/
 					setVoiceChange(0);
 					Log.v("Alarm", "voice1:enable"+voice1.isEnabled()+"voice2:enable+"+voice2.isEnabled());
 					break;
 				case RECORD_FINISHED: // 录音完成
 					// Toast.makeText(getActivity(), "处理完成",
 					// Toast.LENGTH_SHORT).show();
-/*					voice1.setEnabled(true);
-					voice2.setEnabled(true);
-					voice3.setEnabled(true);
-					voice4.setEnabled(true);*/
 					setVoiceChange(1);
 					break;
 
@@ -237,10 +229,6 @@ public class SetAlarmFragment extends Fragment implements
 		voice2 = (Button) view.findViewById(R.id.voice2_button);
 		voice3 = (Button) view.findViewById(R.id.voice3_button);
 		voice4 = (Button) view.findViewById(R.id.voice4_button);
-/*		voice1.setEnabled(false);
-		voice2.setEnabled(false);
-		voice3.setEnabled(false);
-		voice4.setEnabled(false);*/
 		setVoiceChange(0);
 
 		voice1.setOnClickListener(new View.OnClickListener() {
@@ -250,8 +238,7 @@ public class SetAlarmFragment extends Fragment implements
 					setVoiceChange(1);
 				}else{
 					Toast.makeText(getActivity(), "请先录制语音", Toast.LENGTH_SHORT).show();
-				}
-									
+				}									
 			}
 		});
 		
@@ -380,10 +367,6 @@ public class SetAlarmFragment extends Fragment implements
 				play.setEnabled(false);
 				record_timeTextView.setText("00:00");
 				ISRECORDED = false;
-/*				voice1.setEnabled(false);
-				voice2.setEnabled(false);
-				voice3.setEnabled(false);
-				voice4.setEnabled(false);*/
 				setVoiceChange(0);
 			}
 		});
@@ -737,14 +720,12 @@ public class SetAlarmFragment extends Fragment implements
 				currentFile = tempFile4;
 				break;
 			default:
-				break;
-			
+				break;			
 		}
-
 	}
 
 	private void toggleVoiceButton() {
-		// if(isvoice1)
+
 	}
 
 	@Override
