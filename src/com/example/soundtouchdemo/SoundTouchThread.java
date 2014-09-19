@@ -10,7 +10,6 @@ import com.jeremyfeinstein.slidingmenu.example.SetAlarmFragment;
 
 import android.annotation.SuppressLint;
 import android.os.Handler;
-import android.util.Log;
 
 public class SoundTouchThread extends Thread {
 
@@ -19,9 +18,6 @@ public class SoundTouchThread extends Thread {
 	private static final long TIME_WAIT_RECORDING = 100;
 	private volatile boolean setToStopped = false;
 	private JNISoundTouch soundtouch = new JNISoundTouch();
-	private JNISoundTouch soundtouch2 = new JNISoundTouch();
-	private JNISoundTouch soundtouch3 = new JNISoundTouch();
-	private JNISoundTouch soundtouch4 = new JNISoundTouch();
 	private JNIMp3Encode mp3Encode = new JNIMp3Encode();
 	private LinkedList<byte[]> wavDatas = new LinkedList<byte[]>();
 	private LinkedList<byte[]> wavDatas2 = new LinkedList<byte[]>();
@@ -61,9 +57,9 @@ public class SoundTouchThread extends Thread {
 
 		soundtouch.setSampleRate(16000);
 		soundtouch.setChannels(1);
-		soundtouch.setPitchSemiTones(10);
-		soundtouch.setRateChange(-0.7f);
-		soundtouch.setTempoChange(0.5f);
+		soundtouch.setPitchSemiTones(0);
+		soundtouch.setRateChange(0.0f);
+		soundtouch.setTempoChange(0.0f);
 				
 		wavDatas.clear();
 		wavDatas2.clear();
@@ -104,9 +100,9 @@ public class SoundTouchThread extends Thread {
 		
 		soundtouch.setSampleRate(16000);
 		soundtouch.setChannels(1);
-		soundtouch.setPitchSemiTones(-3);
+		soundtouch.setPitchSemiTones(5);
 		soundtouch.setRateChange(0.7f);
-		soundtouch.setTempoChange(-0.5f);
+		soundtouch.setTempoChange(0.5f);
 		
 		for(short[] element:recordAllDatas){
 			
@@ -122,9 +118,9 @@ public class SoundTouchThread extends Thread {
 		
 		soundtouch.setSampleRate(16000);
 		soundtouch.setChannels(1);
-		soundtouch.setPitchSemiTones(-3);
-		soundtouch.setRateChange(0.7f);
-		soundtouch.setTempoChange(-0.5f);
+		soundtouch.setPitchSemiTones(5);
+		soundtouch.setRateChange(1f);
+		soundtouch.setTempoChange(0.7f);
 		
 		for(short[] element:recordAllDatas){
 			
@@ -140,9 +136,9 @@ public class SoundTouchThread extends Thread {
 		
 		soundtouch.setSampleRate(16000);
 		soundtouch.setChannels(1);
-		soundtouch.setPitchSemiTones(-3);
-		soundtouch.setRateChange(0.7f);
-		soundtouch.setTempoChange(-0.5f);
+		soundtouch.setPitchSemiTones(10);
+		soundtouch.setRateChange(-0.7f);
+		soundtouch.setTempoChange(0.5f);
 		
 		for(short[] element:recordAllDatas){
 			

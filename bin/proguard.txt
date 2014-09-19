@@ -156,7 +156,7 @@
 # view AndroidManifest.xml #generated:103
 -keep class com.jiaziang8.alarm.service.MyReceiver { <init>(...); }
 
-# view res/layout/setalarm.xml #generated:123
+# view res/layout/setalarm.xml #generated:124
 -keep class com.jiaziang8.alarm.ui.CustomExpandableListView { <init>(...); }
 
 # view res/layout/activity_contacts.xml #generated:31
