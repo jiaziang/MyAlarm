@@ -470,7 +470,7 @@ public class SetAlarmFragment extends Fragment implements
 		}
 		timeTextView.setText(mhourString + ":" + mminuteString);
 		Toast.makeText(getActivity(),
-				"time:" + mhourString + ":" + mminuteString, Toast.LENGTH_SHORT)
+				"闹钟时间设为:" + mhourString + ":" + mminuteString, Toast.LENGTH_SHORT)
 				.show();
 	}
 

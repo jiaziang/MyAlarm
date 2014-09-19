@@ -51,8 +51,8 @@ public class StartActivity extends InstrumentedActivity {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case MSG:
-				Toast.makeText(getApplicationContext(), "登录成功",
-						Toast.LENGTH_SHORT).show();
+/*				Toast.makeText(getApplicationContext(), "登录成功",
+						Toast.LENGTH_SHORT).show();*/
 				Intent contentIntent = new Intent();
 				Bundle bundle = new Bundle();
 				bundle.putString("account", ACCOUNT);

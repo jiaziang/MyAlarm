@@ -64,26 +64,7 @@ public class SoundTouchThread extends Thread {
 		soundtouch.setPitchSemiTones(10);
 		soundtouch.setRateChange(-0.7f);
 		soundtouch.setTempoChange(0.5f);
-
-		soundtouch2.setSampleRate(16000);
-		soundtouch2.setChannels(1);
-		soundtouch2.setPitchSemiTones(10);
-		soundtouch2.setRateChange(-0.7f);
-		soundtouch2.setTempoChange(0.5f);
-		
-		soundtouch3.setSampleRate(16000);
-		soundtouch3.setChannels(1);
-		soundtouch3.setPitchSemiTones(5);
-		soundtouch3.setRateChange(-0.2f);
-		soundtouch3.setTempoChange(0.7f);
-		
-		soundtouch4.setSampleRate(16000);
-		soundtouch4.setChannels(1);
-		soundtouch4.setPitchSemiTones(5);
-		soundtouch4.setRateChange(-0.2f);
-		soundtouch4.setTempoChange(0.7f);
-		
-		
+				
 		wavDatas.clear();
 		wavDatas2.clear();
 		wavDatas3.clear();
@@ -98,44 +79,7 @@ public class SoundTouchThread extends Thread {
 						TimeUnit.MILLISECONDS);
 				
 				if (recordingData != null) {
-					
-					soundtouch.putSamples(recordingData, recordingData.length);					
-					short[] buffer;					
-					do {
-						buffer = soundtouch.receiveSamples();
-						
-						byte[] mp3Datas = mp3Encode.encode(buffer, buffer.length);
-						Log.v("Alarm", "recodingdata:"+recordingData.length+"  buffer:"+buffer.length+"  mp3Data:"+mp3Datas.length);
-						wavDatas.add(mp3Datas);
-					} while (buffer.length > 0);
-					
-					
-					soundtouch.putSamples(recordingData, recordingData.length);
-					short[] buffer2;
-					do {
-						buffer2 = soundtouch.receiveSamples();
-						byte[] mp3Datas = mp3Encode.encode(buffer2, buffer2.length);
-						Log.v("Alarm", "recodingdata:"+recordingData.length+"  buffer2:"+buffer2.length+"  mp3Data:"+mp3Datas.length);
-						wavDatas2.add(mp3Datas);	
-					} while (buffer2.length > 0);
-					
-					
-			/*		soundtouch3.putSamples(recordingData, recordingData.length);
-					short[] buffer3;
-					do {
-						buffer3 = soundtouch3.receiveSamples();
-						byte[] mp3Datas = mp3Encode.encode(buffer3, buffer3.length);
-						wavDatas3.add(mp3Datas);					
-					} while (buffer3.length > 0);			
-					
-					soundtouch4.putSamples(recordingData, recordingData.length);
-					short[] buffer4;
-					do {
-						buffer4 = soundtouch4.receiveSamples();
-						byte[] mp3Datas = mp3Encode.encode(buffer4, buffer4.length);
-						wavDatas4.add(mp3Datas);					
-					} while (buffer4.length > 0);	*/	
-					
+					recordAllDatas.add(recordingData);					
 				}
 
 				if (setToStopped && recordQueue.size() == 0) {
@@ -145,6 +89,73 @@ public class SoundTouchThread extends Thread {
 				e.printStackTrace();
 			}
 		}
+		
+		for(short[] element:recordAllDatas){
+			
+			soundtouch.putSamples(element, element.length);
+			short[] buffer1;	
+			byte[] mp3Datas;
+			do {
+				buffer1 = soundtouch.receiveSamples();
+				mp3Datas = mp3Encode.encode(buffer1, buffer1.length);
+				wavDatas.add(mp3Datas);
+			} while (buffer1.length > 0);
+		}
+		
+		soundtouch.setSampleRate(16000);
+		soundtouch.setChannels(1);
+		soundtouch.setPitchSemiTones(-3);
+		soundtouch.setRateChange(0.7f);
+		soundtouch.setTempoChange(-0.5f);
+		
+		for(short[] element:recordAllDatas){
+			
+			soundtouch.putSamples(element, element.length);
+			short[] buffer1;	
+			byte[] mp3Datas;
+			do {
+				buffer1 = soundtouch.receiveSamples();
+				mp3Datas = mp3Encode.encode(buffer1, buffer1.length);
+				wavDatas2.add(mp3Datas);
+			} while (buffer1.length > 0);
+		}
+		
+		soundtouch.setSampleRate(16000);
+		soundtouch.setChannels(1);
+		soundtouch.setPitchSemiTones(-3);
+		soundtouch.setRateChange(0.7f);
+		soundtouch.setTempoChange(-0.5f);
+		
+		for(short[] element:recordAllDatas){
+			
+			soundtouch.putSamples(element, element.length);
+			short[] buffer1;	
+			byte[] mp3Datas;
+			do {
+				buffer1 = soundtouch.receiveSamples();
+				mp3Datas = mp3Encode.encode(buffer1, buffer1.length);
+				wavDatas3.add(mp3Datas);
+			} while (buffer1.length > 0);
+		}
+		
+		soundtouch.setSampleRate(16000);
+		soundtouch.setChannels(1);
+		soundtouch.setPitchSemiTones(-3);
+		soundtouch.setRateChange(0.7f);
+		soundtouch.setTempoChange(-0.5f);
+		
+		for(short[] element:recordAllDatas){
+			
+			soundtouch.putSamples(element, element.length);
+			short[] buffer1;	
+			byte[] mp3Datas;
+			do {
+				buffer1 = soundtouch.receiveSamples();
+				mp3Datas = mp3Encode.encode(buffer1, buffer1.length);
+				wavDatas4.add(mp3Datas);
+			} while (buffer1.length > 0);
+		}
+		
 
 		try {
 			
@@ -162,13 +173,13 @@ public class SoundTouchThread extends Thread {
 						
 			
 			FileOutputStream out3 = new FileOutputStream(Filename_3);
-			for (byte[] bytes : wavDatas) {
+			for (byte[] bytes : wavDatas3) {
 				out3.write(bytes);
 			}
 			out3.close();
 			
 			FileOutputStream out4 = new FileOutputStream(Filename_4);
-			for (byte[] bytes : wavDatas) {
+			for (byte[] bytes : wavDatas4) {
 				out4.write(bytes);
 			}
 			out4.close();
