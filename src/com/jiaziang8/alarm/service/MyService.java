@@ -59,7 +59,13 @@ public class MyService {
 	public static final String UPLOADALARMURL = Constants.url
 			+"/AlarmServer2/UploadServlet";
 	public static final String GETHEADURL = Constants.url
-			+"/AlarmServer2/Head/";
+			+"/AlarmServer2/Head";
+	public static final String REGISTURL = Constants.url
+			+ "/AlarmServer2/RegistServlet";
+	public static final String DOWNURL = Constants.url
+			+ "/AlarmServer2/DownLoadServlet";
+	public static final String CHECKURL = Constants.url
+			+"/AlarmServer2/CheckServlet";
 	public static final int COUNT = 10;
 
 	//获取好友列表

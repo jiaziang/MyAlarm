@@ -101,8 +101,8 @@ public class SoundTouchThread extends Thread {
 		soundtouch.setSampleRate(16000);
 		soundtouch.setChannels(1);
 		soundtouch.setPitchSemiTones(5);
-		soundtouch.setRateChange(0.7f);
-		soundtouch.setTempoChange(0.5f);
+		soundtouch.setRateChange(-0.2f);	
+		soundtouch.setTempoChange(20.0f);
 		
 		for(short[] element:recordAllDatas){
 			
@@ -118,9 +118,9 @@ public class SoundTouchThread extends Thread {
 		
 		soundtouch.setSampleRate(16000);
 		soundtouch.setChannels(1);
-		soundtouch.setPitchSemiTones(5);
-		soundtouch.setRateChange(1f);
-		soundtouch.setTempoChange(0.7f);
+		soundtouch.setPitchSemiTones(-4);
+		soundtouch.setRateChange(-0.2f);
+		soundtouch.setTempoChange(-0.2f);
 		
 		for(short[] element:recordAllDatas){
 			
@@ -136,9 +136,9 @@ public class SoundTouchThread extends Thread {
 		
 		soundtouch.setSampleRate(16000);
 		soundtouch.setChannels(1);
-		soundtouch.setPitchSemiTones(10);
-		soundtouch.setRateChange(-0.7f);
-		soundtouch.setTempoChange(0.5f);
+		soundtouch.setPitchSemiTones(5);
+		soundtouch.setRateChange(-40f);
+		soundtouch.setTempoChange(10f);
 		
 		for(short[] element:recordAllDatas){
 			

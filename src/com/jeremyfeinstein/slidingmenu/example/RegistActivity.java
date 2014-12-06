@@ -12,7 +12,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 
+import com.jiaziang8.alarm.service.MyService;
 import com.jiaziang8.alarm.util.Constants;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,8 +31,7 @@ public class RegistActivity extends Activity {
 	private EditText password;
 	private Button confirm;
 	private static final int EXIST_MSG = 0;
-	private static final String ServletUrl = Constants.url
-			+ "/AlarmServer/RegistServlet";
+	private static final String ServletUrl = MyService.REGISTURL;
 
 	Handler handler = new Handler() {
 		@Override

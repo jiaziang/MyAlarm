@@ -11,7 +11,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 
+import com.jiaziang8.alarm.service.MyService;
 import com.jiaziang8.alarm.util.Constants;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -27,7 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class SmsConfirmActivity extends Activity {
-	private static final String ServletUrl = Constants.url+"/AlarmServer/CheckServlet";
+	//private static final String ServletUrl = Constants.url+"/AlarmServer/CheckServlet";
 	private static final int REGIST_SUCCESS = 1;
 	private static final int REGIST_FAILER = 0;
 	String accountString ;
@@ -113,7 +115,7 @@ public class SmsConfirmActivity extends Activity {
 	}
 	
 	private void submit(){
-		HttpPost post = new HttpPost(ServletUrl);
+		HttpPost post = new HttpPost(MyService.CHECKURL);
 		post.setHeader("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
 		List<NameValuePair> param = new ArrayList<NameValuePair>();
 		param.add(new BasicNameValuePair("username", accountString));

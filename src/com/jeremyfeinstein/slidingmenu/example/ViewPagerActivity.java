@@ -232,9 +232,12 @@ public class ViewPagerActivity extends BaseActivity {
 		super.onDestroy();
 		//清空缓存
         File[] files = cache.listFiles();
-        for(File file :files){
-            file.delete();
+        if(files!=null){
+            for(File file :files){
+                file.delete();
+            }
         }
+
         cache.delete();
 	}
 

@@ -173,7 +173,7 @@ public class FriendListFragment extends Fragment {
 					String path = params[0];
 					if (path.equals(""))
 						return null;
-					path = Constants.url + "/AlarmServer/Head/"
+					path = MyService.GETHEADURL
 							+ path.substring(path.lastIndexOf("/"));
 					return service.getImageURI(path, cache);
 				} catch (Exception e) {

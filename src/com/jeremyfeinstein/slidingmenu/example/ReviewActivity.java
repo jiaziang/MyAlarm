@@ -53,7 +53,7 @@ public class ReviewActivity extends Activity implements IXListViewListener,
 	private MediaPlayer mediaPlayer;
 	private boolean isPlaying = false;
 	private static final String LISTENURL_STRING = Constants.url
-			+ "/AlarmServer/Head/recordFile/";
+			+ "/AlarmServer2/Record/";
 	private boolean hasMainActivity;
 	private Contacts contacts;
 	private RelativeLayout backRelativeLayout;
@@ -260,6 +260,7 @@ public class ReviewActivity extends Activity implements IXListViewListener,
 				reviewInfoTextView.setText(Contacts.getNamaByNumber(account)
 						+ "给我设了闹钟");
 			}
+			//播放录音
 			playButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -271,7 +272,8 @@ public class ReviewActivity extends Activity implements IXListViewListener,
 						// String urlString =
 						// "http://192.168.1.105:8080/AlarmServer/tempFile719657307.amr";
 						playUrl(LISTENURL_STRING + listenurlString,buttonView);
-						//Log.v("nimei", LISTENURL_STRING + listenurlString);
+						
+						Log.v("nimei", LISTENURL_STRING + listenurlString);
 						
 					} else if(mediaPlayer.isPlaying()&&temButton==buttonView){
 						buttonView.setBackgroundResource(R.drawable.review_play);

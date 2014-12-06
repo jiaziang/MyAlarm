@@ -20,6 +20,7 @@ import com.cn.daming.deskclock.Alarm;
 import com.cn.daming.deskclock.Alarms;
 import com.cn.daming.deskclock.Alarm.DaysOfWeek;
 import com.jeremyfeinstein.slidingmenu.example.NotificationActivity;
+import com.jiaziang8.alarm.service.MyService;
 import com.jiaziang8.alarm.util.Constants;
 
 import android.content.Context;
@@ -53,7 +54,7 @@ public class AlarmDetailListener implements OnClickListener {
 
 	private Alarm alarm;
 
-	String urlString = Constants.url + "/AlarmServer/DownLoadServlet";
+	String urlString = MyService.DOWNURL;
 
 	public AlarmDetailListener() {
 	}
@@ -92,10 +93,9 @@ public class AlarmDetailListener implements OnClickListener {
 		alarm.label = lable;
 		alarm.alert = alarmUri;
 
-		//Log.v("Alarm", "fiiiiiiiiii"+filename);
 		final String realfilename = filename.substring( // 获取文件名
-				filename.lastIndexOf("\\") + 1);
-		//Log.v("Alarm", "reeeeeeeeee"+realfilename);
+				filename.lastIndexOf("\\") + 1);		
+		Log.v("nimei", "realfilename"+realfilename);
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -140,6 +140,7 @@ public class AlarmDetailListener implements OnClickListener {
 			List<NameValuePair> param = new ArrayList<NameValuePair>();
 			param.add(new BasicNameValuePair("filename", filename));
 			param.add(new BasicNameValuePair("id", String.valueOf(id)));
+			Log.v("nimei", "filename"+filename);
 			post.setEntity(new UrlEncodedFormEntity(param, HTTP.UTF_8));
 			HttpResponse response = new DefaultHttpClient().execute(post);
 
@@ -170,7 +171,6 @@ public class AlarmDetailListener implements OnClickListener {
 				return getImageContentUri(context, tempFile);
 				// return Uri.fromFile(tempFile);
 			} else
-				//Log.v("nimei", "alarmUri is11111111111111111:");
 			return Uri.parse(Uri.fromFile(tempFile).toString());
 		} catch (Exception e) {
 
